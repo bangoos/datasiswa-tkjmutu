@@ -1,20 +1,22 @@
 import { NextResponse } from "next/server";
 import { ensureDatabaseSeeded } from "@/lib/seed";
 
-// POST /api/students/seed - Seed database with admin and test data
-export async function POST() {
+// GET /api/init - Auto-seed database (safe to call multiple times)
+export async function GET() {
   try {
     await ensureDatabaseSeeded();
 
     return NextResponse.json({
-      message: "Database seeding completed successfully",
+      success: true,
+      message: "Database initialized successfully",
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error("Error seeding database:", error);
+    console.error("Database initialization error:", error);
     return NextResponse.json(
       {
-        error: "Internal server error",
+        success: false,
+        error: "Database initialization failed",
         details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 },

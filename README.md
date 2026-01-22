@@ -1,141 +1,277 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# Sistem Data Siswa TKJ MUTU Cikampek
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+Sistem manajemen data siswa modern untuk TKJ MUTU Cikampek menggunakan Next.js 14+, SQLite, dan NextAuth.js.
 
-## ✨ Technology Stack
+## 🚀 Fitur Utama
 
-This scaffold provides a robust foundation built with:
+### 1. **Login System (Admin & Siswa)**
+- Autentikasi berbasis NIS (Nomor Induk Siswa)
+- Password default adalah NIS
+- Role-based access control (Admin/Student)
+- Modern dark mode UI
 
-### 🎯 Core Framework
-- **⚡ Next.js 16** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
+### 2. **Admin Dashboard**
+- Statistik jumlah siswa per kelas (X, XI, XII)
+- Tabel list siswa dengan filter pencarian
+- Filter berdasarkan kelas
+- Import data siswa dari file Excel/CSV
+- Delete siswa
+- Sticky header dan footer
 
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
+### 3. **Student Profile**
+- Siswa dapat melihat dan mengedit data diri
+- Tidak dapat mengubah NIS dan role
+- Form lengkap: biodata, kontak, orang tua, pendidikan, data fisik
 
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
+## 📋 Persyaratan Teknologi
 
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Fetch** - Promise-based HTTP request
+- **Framework**: Next.js 16 dengan App Router
+- **Language**: TypeScript 5
+- **Database**: SQLite dengan Prisma ORM
+- **Styling**: Tailwind CSS 4 dengan shadcn/ui
+- **Authentication**: NextAuth.js v4
+- **Icons**: Lucide React
 
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
+## 🛠️ Instalasi & Setup
 
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
-
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
-
-## 🎯 Why This Scaffold?
-
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
-
-## 🚀 Quick Start
-
+### 1. Clone Repository
 ```bash
-# Install dependencies
-bun install
-
-# Start development server
-bun run dev
-
-# Build for production
-bun run build
-
-# Start production server
-bun start
+cd /home/z/my-project
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
+### 2. Install Dependencies
+```bash
+bun install
+```
 
-## 🤖 Powered by Z.ai
+### 3. Setup Database
+```bash
+# Push schema ke database
+bun run db:push
 
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
+# Seed database dengan admin dan data tes
+curl -X POST http://localhost:3000/api/students/seed
+```
 
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
+### 4. Jalankan Development Server
+```bash
+bun run dev
+```
 
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
+Server akan berjalan di `http://localhost:3000`
 
-## 📁 Project Structure
+## 👥 Akun Default
+
+### Admin
+- **NIS**: `ADMIN`
+- **Password**: `ADMIN`
+- **Akses**: Full access ke semua fitur admin
+
+### Siswa (Data Tes)
+| NIS | Password | Nama | Kelas |
+|-----|----------|------|-------|
+| 1001 | 1001 | Ahmad Fauzi | X |
+| 1002 | 1002 | Siti Nurhaliza | XI |
+| 1003 | 1003 | Rudi Hartono | XII |
+
+## 📁 Struktur Project
 
 ```
 src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
+├── app/
+│   ├── admin/              # Admin Dashboard
+│   │   └── page.tsx
+│   ├── api/
+│   │   ├── auth/
+│   │   │   └── [...nextauth]/
+│   │   │       └── route.ts
+│   │   └── students/
+│   │       ├── route.ts           # GET/POST all students
+│   │       ├── [id]/route.ts     # GET/PUT/DELETE student by ID
+│   │       ├── stats/route.ts     # GET statistics
+│   │       ├── import/route.ts    # POST import from Excel/CSV
+│   │       └── seed/route.ts      # POST seed database
+│   ├── siswa/              # Student Profile
+│   │   └── page.tsx
+│   ├── page.tsx            # Login Page
+│   ├── layout.tsx          # Root Layout
+│   └── globals.css         # Global Styles
+├── components/
+│   ├── providers.tsx        # SessionProvider wrapper
+│   └── ui/                 # shadcn/ui components
+├── hooks/
+│   └── use-toast.ts        # Toast hook
+├── lib/
+│   └── db.ts               # Prisma Client
+├── types/
+│   └── next-auth.d.ts      # NextAuth type definitions
+└── prisma/
+    └── schema.prisma       # Database Schema
 ```
 
-## 🎨 Available Features & Components
+## 🗄️ Database Schema
 
-This scaffold includes a comprehensive set of modern web development tools:
+```prisma
+model Student {
+  id             Int      @id @default(autoincrement())
+  nama           String
+  nis            String   @unique
+  jk             String
+  ttl            String
+  nik            String
+  agama          String
+  alamat         String
+  noHp           String   @map("no_hp")
+  email          String
+  noHpOrtu       String   @map("no_hp_ortu")
+  namaBapak      String   @map("nama_bapak")
+  namaIbu        String   @map("nama_ibu")
+  pekerjaanOrtu  String   @map("pekerjaan_ortu")
+  statusAnak     String   @map("status_anak")
+  anakKe         Int      @map("anak_ke")
+  kelas          String
+  asalSmp        String   @map("asal_smp")
+  tb             Int
+  bb             Int
+  role           String
+  password       String
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+}
+```
 
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
+## 📤 Format File Import
 
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
+Untuk import data siswa dari Excel/CSV, gunakan format kolom berikut:
 
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
+| Kolom | Format |
+|-------|--------|
+| nama / Nama | String |
+| nis / NIS | String (Unique) |
+| jk / JK / jenis_kelamin | L/P |
+| ttl / TTL | String (contoh: "Jakarta, 01-01-2006") |
+| nik / NIK | String |
+| agama / Agama | String |
+| alamat / Alamat | String |
+| no_hp / No_HP / nohp | String |
+| email / Email | String |
+| no_hp_ortu / No_HP_Ortu | String |
+| nama_bapak / Nama_Bapak | String |
+| nama_ibu / Nama_Ibu | String |
+| pekerjaan_ortu / Pekerjaan_Ortu | String |
+| status_anak / Status_Anak | String |
+| anak_ke / Anak_Ke | Integer |
+| kelas / Kelas | X/XI/XII |
+| asal_smp / Asal_SMP | String |
+| tb / TB | Integer |
+| bb / BB | Integer |
 
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Fetch + TanStack Query
-- **State Management**: Simple and scalable with Zustand
+Password default untuk siswa yang diimport adalah NIS mereka.
 
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
+## 🔐 API Endpoints
 
-## 🤝 Get Started with Z.ai
+### Authentication
+- `GET/POST /api/auth/[...nextauth]` - NextAuth authentication
 
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+### Students
+- `GET /api/students` - Get all students (admin only, supports query params: `kelas`, `search`)
+- `POST /api/students` - Create new student (admin only)
+- `GET /api/students/[id]` - Get student by ID
+- `PUT /api/students/[id]` - Update student
+- `DELETE /api/students/[id]` - Delete student (admin only)
+- `GET /api/students/stats` - Get statistics (admin only)
+- `POST /api/students/import` - Import from Excel/CSV (admin only)
+- `POST /api/students/seed` - Seed database with test data
+
+## 🎨 UI Features
+
+- **Full Dark Mode**: Tampilan gelap yang modern dan nyaman di mata
+- **Responsive Design**: Optimal untuk mobile dan desktop
+- **shadcn/ui Components**: Komponen UI yang konsisten dan accessible
+- **Gradient Effects**: Efek gradient yang elegan
+- **Loading States**: Indikator loading untuk user experience yang lebih baik
+- **Toast Notifications**: Feedback visual untuk user actions
+- **Sticky Header/Footer**: Navigasi yang tetap terlihat saat scroll
+- **Custom Scrollbar**: Scrollbar yang styled dan user-friendly
+
+## 🔧 Perintah Tersedia
+
+```bash
+# Development
+bun run dev          # Start development server
+bun run build        # Build for production
+bun run start        # Start production server
+bun run lint         # Run ESLint
+
+# Database
+bun run db:push      # Push schema changes to database
+bun run db:generate  # Generate Prisma Client
+bun run db:migrate   # Run database migrations
+bun run db:reset     # Reset database
+```
+
+## 📝 Catatan Penting
+
+### Security
+- Password disimpan dalam format plain text (untuk development purposes)
+- Untuk production, gunakan password hashing dengan bcrypt
+- Validasi input tambahan disarankan untuk production
+
+### Deployment
+- Untuk deployment di Vercel, gunakan Turso SQLite atau database lain untuk persistence data
+- File `.db` lokal tidak akan persisten di Vercel
+- Pastikan environment variables `DATABASE_URL` dan `NEXTAUTH_SECRET` terkonfigurasi
+
+## 🤝 Contributing
+
+1. Fork repository
+2. Buat branch feature (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buka Pull Request
+
+## 📄 License
+
+Copyright © 2024 TKJ MUTU Cikampek
+
+## 💡 Tips Penggunaan
+
+### Untuk Admin
+1. Login dengan NIS `ADMIN` dan password `ADMIN`
+2. Dashboard menampilkan statistik siswa per kelas
+3. Gunakan filter untuk mencari atau memfilter berdasarkan kelas
+4. Import data siswa dari file Excel/CSV untuk bulk insert
+5. Hapus siswa yang tidak diperlukan dengan tombol delete
+
+### Untuk Siswa
+1. Login dengan NIS dan password (default: NIS)
+2. Lihat dan edit data diri di halaman profil
+3. Simpan perubahan dengan tombol "Simpan Perubahan"
+4. Reset form jika ingin kembali ke data semula
+
+## 🐛 Troubleshooting
+
+### Database Error
+```bash
+# Reset dan seed ulang database
+bun run db:reset
+curl -X POST http://localhost:3000/api/students/seed
+```
+
+### Module Not Found
+```bash
+# Install ulang dependencies
+rm -rf node_modules bun.lockb
+bun install
+```
+
+### Build Error
+```bash
+# Clear Next.js cache
+rm -rf .next
+bun run dev
+```
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+**Dibuat dengan ❤️ untuk TKJ MUTU Cikampek**

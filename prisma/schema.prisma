@@ -13,20 +13,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Student {
+  id             Int      @id @default(autoincrement())
+  nama           String
+  nis            String   @unique
+  jk             String
+  ttl            String
+  nik            String
+  agama          String
+  alamat         String
+  noHp           String   @map("no_hp")
+  email          String
+  noHpOrtu       String   @map("no_hp_ortu")
+  namaBapak      String   @map("nama_bapak")
+  namaIbu        String   @map("nama_ibu")
+  pekerjaanOrtu  String   @map("pekerjaan_ortu")
+  statusAnak     String   @map("status_anak")
+  anakKe         Int      @map("anak_ke")
+  kelas          String
+  asalSmp        String   @map("asal_smp")
+  tb             Int
+  bb             Int
+  role           String
+  password       String
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
 }

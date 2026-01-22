@@ -117,7 +117,8 @@ model Student {
   nama           String
   nis            String   @unique
   jk             String
-  ttl            String
+  tempatLahir    String   @map("tempat_lahir")
+  tanggalLahir   String   @map("tanggal_lahir")
   nik            String
   agama          String
   alamat         String
@@ -125,12 +126,10 @@ model Student {
   email          String
   noHpOrtu       String   @map("no_hp_ortu")
   namaBapak      String   @map("nama_bapak")
+  pekerjaanBapak String   @map("pekerjaan_bapak")
   namaIbu        String   @map("nama_ibu")
-  pekerjaanOrtu  String   @map("pekerjaan_ortu")
-  statusAnak     String   @map("status_anak")
-  anakKe         Int      @map("anak_ke")
   kelas          String
-  asalSmp        String   @map("asal_smp")
+  asalSekolah    String   @map("asal_sekolah")
   tb             Int
   bb             Int
   role           String
@@ -139,6 +138,30 @@ model Student {
   updatedAt      DateTime @updatedAt @map("updated_at")
 }
 ```
+
+### Kolom Data Siswa
+
+| Kolom | Deskripsi |
+|--------|-----------|
+| No | ID (auto-increment) |
+| Nama | Nama lengkap siswa |
+| NIS | Nomor Induk Siswa (unique) |
+| JK | Jenis Kelamin (L/P) |
+| No-HP | Nomor HP siswa |
+| Tempat-Lahir | Tempat lahir siswa |
+| Tanggal-Lahir | Tanggal lahir siswa |
+| NIK | Nomor Induk Kependudukan |
+| Agama | Agama siswa |
+| Alamat | Alamat lengkap |
+| NOHP-Ortu | Nomor HP orang tua |
+| Email | Email siswa |
+| Nama-Bapak | Nama bapak |
+| Pekerjaan-Bapak | Pekerjaan bapak |
+| Nama-Ibu | Nama ibu |
+| Kelas | Kelas (X, XI, XII) |
+| Asal-Sekolah | Asal sekolah sebelumnya |
+| BB | Berat Badan (kg) |
+| TB | Tinggi Badan (cm) |
 
 ## 📤 Format File Import
 
@@ -149,20 +172,19 @@ Untuk import data siswa dari Excel/CSV, gunakan format kolom berikut:
 | nama / Nama | String |
 | nis / NIS | String (Unique) |
 | jk / JK / jenis_kelamin | L/P |
-| ttl / TTL | String (contoh: "Jakarta, 01-01-2006") |
+| tempat_lahir / Tempat-Lahir | String |
+| tanggal_lahir / Tanggal-Lahir | Date (YYYY-MM-DD) |
 | nik / NIK | String |
 | agama / Agama | String |
 | alamat / Alamat | String |
-| no_hp / No_HP / nohp | String |
+| no_hp / No-HP | String |
 | email / Email | String |
-| no_hp_ortu / No_HP_Ortu | String |
-| nama_bapak / Nama_Bapak | String |
-| nama_ibu / Nama_Ibu | String |
-| pekerjaan_ortu / Pekerjaan_Ortu | String |
-| status_anak / Status_Anak | String |
-| anak_ke / Anak_Ke | Integer |
+| no_hp_ortu / NOHP-Ortu | String |
+| nama_bapak / Nama-Bapak | String |
+| pekerjaan_bapak / Pekerjaan-Bapak | String |
+| nama_ibu / Nama-Ibu | String |
 | kelas / Kelas | X/XI/XII |
-| asal_smp / Asal_SMP | String |
+| asal_sekolah / Asal-Sekolah | String |
 | tb / TB | Integer |
 | bb / BB | Integer |
 

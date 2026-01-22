@@ -7,16 +7,9 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: false,
   // Skip build-time database connections
-  experimental: {
-    serverComponentsExternalPackages: ["@prisma/client"],
-  },
-  // Handle build issues
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.externals.push("@prisma/client");
-    }
-    return config;
-  },
+  serverExternalPackages: ["@prisma/client"],
+  // Handle build issues with Turbopack
+  turbopack: {},
 };
 
 export default nextConfig;

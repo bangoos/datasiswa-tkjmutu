@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { db } from '@/lib/db'
-import { readFileSync } from 'fs'
 import * as XLSX from 'xlsx'
 
 // POST /api/students/import - Import students from Excel/CSV (admin only)
@@ -36,20 +35,19 @@ export async function POST(request: NextRequest) {
       nama: row.nama || row.Nama || '',
       nis: String(row.nis || row.NIS || ''),
       jk: String(row.jk || row.JK || row.jenis_kelamin || ''),
-      ttl: String(row.ttl || row.TTL || ''),
+      tempatLahir: String(row.tempat_lahir || row['Tempat-Lahir'] || row['Tempat Lahir'] || ''),
+      tanggalLahir: String(row.tanggal_lahir || row['Tanggal-Lahir'] || row['Tanggal Lahir'] || ''),
       nik: String(row.nik || row.NIK || ''),
       agama: String(row.agama || row.Agama || ''),
       alamat: String(row.alamat || row.Alamat || ''),
-      noHp: String(row.no_hp || row.No_HP || row.nohp || ''),
+      noHp: String(row.no_hp || row['No-HP'] || row['No HP'] || row.nohp || ''),
       email: String(row.email || row.Email || ''),
-      noHpOrtu: String(row.no_hp_ortu || row.No_HP_Ortu || ''),
-      namaBapak: String(row.nama_bapak || row.Nama_Bapak || ''),
-      namaIbu: String(row.nama_ibu || row.Nama_Ibu || ''),
-      pekerjaanOrtu: String(row.pekerjaan_ortu || row.Pekerjaan_Ortu || ''),
-      statusAnak: String(row.status_anak || row.Status_Anak || ''),
-      anakKe: parseInt(row.anak_ke || row.Anak_Ke || '0'),
+      noHpOrtu: String(row.no_hp_ortu || row['NOHP-Ortu'] || row['No HP Ortu'] || ''),
+      namaBapak: String(row.nama_bapak || row['Nama-Bapak'] || row['Nama Bapak'] || ''),
+      pekerjaanBapak: String(row.pekerjaan_bapak || row['Pekerjaan-Bapak'] || row['Pekerjaan Bapak'] || ''),
+      namaIbu: String(row.nama_ibu || row['Nama-Ibu'] || row['Nama Ibu'] || ''),
       kelas: String(row.kelas || row.Kelas || ''),
-      asalSmp: String(row.asal_smp || row.Asal_SMP || ''),
+      asalSekolah: String(row.asal_sekolah || row['Asal-Sekolah'] || row['Asal Sekolah'] || row.asal_smp || ''),
       tb: parseInt(row.tb || row.TB || '0'),
       bb: parseInt(row.bb || row.BB || '0'),
       role: 'STUDENT',

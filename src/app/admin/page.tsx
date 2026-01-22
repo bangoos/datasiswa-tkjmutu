@@ -19,8 +19,20 @@ interface Student {
   nis: string
   kelas: string
   jk: string
-  email: string
+  tempatLahir: string
+  tanggalLahir: string
+  nik: string
+  agama: string
+  alamat: string
   noHp: string
+  email: string
+  noHpOrtu: string
+  namaBapak: string
+  pekerjaanBapak: string
+  namaIbu: string
+  asalSekolah: string
+  tb: number
+  bb: number
 }
 
 interface Stats {
@@ -326,39 +338,65 @@ export default function AdminDashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="max-h-96 overflow-y-auto custom-scrollbar">
+            <div className="max-h-96 overflow-x-auto overflow-y-auto custom-scrollbar">
               <Table>
                 <TableHeader>
                   <TableRow className="border-slate-800">
-                    <TableHead className="text-slate-300">NIS</TableHead>
-                    <TableHead className="text-slate-300">Nama</TableHead>
-                    <TableHead className="text-slate-300">Kelas</TableHead>
-                    <TableHead className="text-slate-300">Jenis Kelamin</TableHead>
-                    <TableHead className="text-slate-300">Email</TableHead>
-                    <TableHead className="text-slate-300">No. HP</TableHead>
-                    <TableHead className="text-slate-300 text-right">Aksi</TableHead>
+                    <TableHead className="text-slate-300 min-w-[60px]">No</TableHead>
+                    <TableHead className="text-slate-300 min-w-[150px]">Nama</TableHead>
+                    <TableHead className="text-slate-300 min-w-[100px]">NIS</TableHead>
+                    <TableHead className="text-slate-300 min-w-[60px]">JK</TableHead>
+                    <TableHead className="text-slate-300 min-w-[120px]">No-HP</TableHead>
+                    <TableHead className="text-slate-300 min-w-[120px]">Tempat Lahir</TableHead>
+                    <TableHead className="text-slate-300 min-w-[120px]">Tanggal Lahir</TableHead>
+                    <TableHead className="text-slate-300 min-w-[150px]">NIK</TableHead>
+                    <TableHead className="text-slate-300 min-w-[100px]">Agama</TableHead>
+                    <TableHead className="text-slate-300 min-w-[200px]">Alamat</TableHead>
+                    <TableHead className="text-slate-300 min-w-[120px]">NOHP Ortu</TableHead>
+                    <TableHead className="text-slate-300 min-w-[200px]">Email</TableHead>
+                    <TableHead className="text-slate-300 min-w-[150px]">Nama Bapak</TableHead>
+                    <TableHead className="text-slate-300 min-w-[150px]">Pekerjaan Bapak</TableHead>
+                    <TableHead className="text-slate-300 min-w-[150px]">Nama Ibu</TableHead>
+                    <TableHead className="text-slate-300 min-w-[80px]">Kelas</TableHead>
+                    <TableHead className="text-slate-300 min-w-[200px]">Asal Sekolah</TableHead>
+                    <TableHead className="text-slate-300 min-w-[60px]">BB</TableHead>
+                    <TableHead className="text-slate-300 min-w-[60px]">TB</TableHead>
+                    <TableHead className="text-slate-300 text-right min-w-[80px]">Aksi</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {students.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={7} className="text-center text-slate-400 py-8">
+                      <TableCell colSpan={20} className="text-center text-slate-400 py-8">
                         Tidak ada data siswa
                       </TableCell>
                     </TableRow>
                   ) : (
                     students.map((student) => (
                       <TableRow key={student.id} className="border-slate-800">
-                        <TableCell className="text-slate-300">{student.nis}</TableCell>
+                        <TableCell className="text-slate-300">{student.id}</TableCell>
                         <TableCell className="text-white font-medium">{student.nama}</TableCell>
+                        <TableCell className="text-slate-300">{student.nis}</TableCell>
+                        <TableCell className="text-slate-300">{student.jk === 'L' ? 'L' : 'P'}</TableCell>
+                        <TableCell className="text-slate-300">{student.noHp}</TableCell>
+                        <TableCell className="text-slate-300">{student.tempatLahir}</TableCell>
+                        <TableCell className="text-slate-300">{student.tanggalLahir}</TableCell>
+                        <TableCell className="text-slate-300">{student.nik}</TableCell>
+                        <TableCell className="text-slate-300">{student.agama}</TableCell>
+                        <TableCell className="text-slate-300">{student.alamat}</TableCell>
+                        <TableCell className="text-slate-300">{student.noHpOrtu}</TableCell>
+                        <TableCell className="text-slate-300">{student.email}</TableCell>
+                        <TableCell className="text-slate-300">{student.namaBapak}</TableCell>
+                        <TableCell className="text-slate-300">{student.pekerjaanBapak}</TableCell>
+                        <TableCell className="text-slate-300">{student.namaIbu}</TableCell>
                         <TableCell>
                           <Badge className="bg-teal-500/10 text-teal-400 border-teal-500/20">
                             {student.kelas}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-slate-300">{student.jk === 'L' ? 'Laki-laki' : 'Perempuan'}</TableCell>
-                        <TableCell className="text-slate-300">{student.email}</TableCell>
-                        <TableCell className="text-slate-300">{student.noHp}</TableCell>
+                        <TableCell className="text-slate-300">{student.asalSekolah}</TableCell>
+                        <TableCell className="text-slate-300">{student.bb}</TableCell>
+                        <TableCell className="text-slate-300">{student.tb}</TableCell>
                         <TableCell className="text-right">
                           <Button
                             onClick={() => handleDelete(student.id)}

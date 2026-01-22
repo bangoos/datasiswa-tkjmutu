@@ -17,7 +17,8 @@ interface StudentData {
   nama: string
   nis: string
   jk: string
-  ttl: string
+  tempatLahir: string
+  tanggalLahir: string
   nik: string
   agama: string
   alamat: string
@@ -25,12 +26,10 @@ interface StudentData {
   email: string
   noHpOrtu: string
   namaBapak: string
+  pekerjaanBapak: string
   namaIbu: string
-  pekerjaanOrtu: string
-  statusAnak: string
-  anakKe: number
   kelas: string
-  asalSmp: string
+  asalSekolah: string
   tb: number
   bb: number
 }
@@ -213,11 +212,21 @@ export default function StudentProfile() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-slate-300">Tempat, Tanggal Lahir</Label>
+                    <Label className="text-slate-300">Tempat Lahir</Label>
                     <Input
-                      value={formData.ttl}
-                      onChange={(e) => handleInputChange('ttl', e.target.value)}
-                      placeholder="Jakarta, 01-01-2006"
+                      value={formData.tempatLahir}
+                      onChange={(e) => handleInputChange('tempatLahir', e.target.value)}
+                      placeholder="Jakarta"
+                      className="bg-slate-950 border-slate-800 text-white"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-slate-300">Tanggal Lahir</Label>
+                    <Input
+                      type="date"
+                      value={formData.tanggalLahir}
+                      onChange={(e) => handleInputChange('tanggalLahir', e.target.value)}
                       className="bg-slate-950 border-slate-800 text-white"
                     />
                   </div>
@@ -327,32 +336,11 @@ export default function StudentProfile() {
                       />
                     </div>
 
-                    <div className="space-y-2 md:col-span-2">
-                      <Label className="text-slate-300">Pekerjaan Orang Tua</Label>
-                      <Input
-                        value={formData.pekerjaanOrtu}
-                        onChange={(e) => handleInputChange('pekerjaanOrtu', e.target.value)}
-                        className="bg-slate-950 border-slate-800 text-white"
-                      />
-                    </div>
-
                     <div className="space-y-2">
-                      <Label className="text-slate-300">Status Anak</Label>
+                      <Label className="text-slate-300">Pekerjaan Bapak</Label>
                       <Input
-                        value={formData.statusAnak}
-                        onChange={(e) => handleInputChange('statusAnak', e.target.value)}
-                        placeholder="Anak Kandung, Anak Angkat, dll"
-                        className="bg-slate-950 border-slate-800 text-white"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label className="text-slate-300">Anak Ke-</Label>
-                      <Input
-                        type="number"
-                        value={formData.anakKe}
-                        onChange={(e) => handleInputChange('anakKe', parseInt(e.target.value))}
-                        min="1"
+                        value={formData.pekerjaanBapak}
+                        onChange={(e) => handleInputChange('pekerjaanBapak', e.target.value)}
                         className="bg-slate-950 border-slate-800 text-white"
                       />
                     </div>
@@ -377,10 +365,10 @@ export default function StudentProfile() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label className="text-slate-300">Asal SMP</Label>
+                      <Label className="text-slate-300">Asal Sekolah</Label>
                       <Input
-                        value={formData.asalSmp}
-                        onChange={(e) => handleInputChange('asalSmp', e.target.value)}
+                        value={formData.asalSekolah}
+                        onChange={(e) => handleInputChange('asalSekolah', e.target.value)}
                         className="bg-slate-950 border-slate-800 text-white"
                       />
                     </div>

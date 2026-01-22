@@ -18,7 +18,8 @@ model Student {
   nama           String
   nis            String   @unique
   jk             String
-  ttl            String
+  tempatLahir    String   @map("tempat_lahir")
+  tanggalLahir   String   @map("tanggal_lahir")
   nik            String
   agama          String
   alamat         String
@@ -26,12 +27,10 @@ model Student {
   email          String
   noHpOrtu       String   @map("no_hp_ortu")
   namaBapak      String   @map("nama_bapak")
+  pekerjaanBapak String   @map("pekerjaan_bapak")
   namaIbu        String   @map("nama_ibu")
-  pekerjaanOrtu  String   @map("pekerjaan_ortu")
-  statusAnak     String   @map("status_anak")
-  anakKe         Int      @map("anak_ke")
   kelas          String
-  asalSmp        String   @map("asal_smp")
+  asalSekolah    String   @map("asal_sekolah")
   tb             Int
   bb             Int
   role           String

@@ -1,8 +1,10 @@
-import { db } from "./db";
+import { getDb } from "./db";
 
 // Auto-seed function yang akan dipanggil saat aplikasi start
 export async function ensureDatabaseSeeded() {
   try {
+    const db = getDb();
+
     // Check if admin already exists
     const existingAdmin = await db.student.findUnique({
       where: { nis: "ADMIN" },
